@@ -18,7 +18,7 @@ pipeline {
         stage('Upload War To Nexus') {
             steps {
                 script {
-                    def mavenPom = script: 'cat pom.xml', returnStdout: true
+                    def mavenPom = sh(script: 'cat pom.xml', returnStdout: true).trim()
                     def nexusRepoName = mavenPom.contains("SNAPSHOT") ? "simpleapp-snapshot" : "simpleapp-release"
 
                     nexusArtifactUploader artifacts: [
